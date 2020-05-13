@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Linkit7697 Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/tools/**",
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/hardware/linkit_rtos/0.10.21/**",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino",
+                "C:/Program Files (x86)/Arduino/tools/**",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/**",
+                "C:/Program Files (x86)/Arduino/hardware/tools/**",
+                "C:/Program Files (x86)/Arduino/libraries/**",
+                "C:/Users/${env:Username}/Documents/Arduino/libraries/**"
+            ],
+            "forcedInclude": [
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/hardware/linkit_rtos/0.10.21/cores/arduino/Arduino.h"
+            ]
+        }
+    ]
+}
