@@ -138,7 +138,7 @@ void testHttpServer()
   Serial.println("\"");
   Serial.print("Visit \"http://");
   Serial.print(ip);
-  Serial.println("/close \" to stop the server.");
+  Serial.println("/close\" to stop the server.");
 
   // The "server.accept();" is required when using ServerWrapper.
   // You can also put it into "loop()" function.
