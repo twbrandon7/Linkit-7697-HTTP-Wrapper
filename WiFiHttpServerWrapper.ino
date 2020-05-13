@@ -37,6 +37,8 @@ void setup()
   testHttpClient();
   delay(1000);
   testHttpServer();
+
+  Serial.println("Testing finished.");
 }
 
 void loop()
@@ -127,7 +129,16 @@ void testHttpServer()
   server.begin();
   server.on("/", []() { handleRoot(0); });
   server.on("/health", handleHealth);
-  server.on("/close", []() { server.stop(); });
+  server.on("/close", handleClose);
+
+  IPAddress ip = WiFi.localIP();
+
+  Serial.print("Server is running. Visit \"http://");
+  Serial.print(ip);
+  Serial.println("\"");
+  Serial.print("Visit \"http://");
+  Serial.print(ip);
+  Serial.println("/close \" to stop the server.");
 
   // The "server.accept();" is required when using ServerWrapper.
   // You can also put it into "loop()" function.
@@ -152,7 +163,7 @@ void handleRoot(int var)
 
   for (int i = 0; i < server.argLength(); i++)
   {
-    body += "<p>" + server.arg(i) + "</p>";
+    body += "<p>" + server.argKey(i) + " = " + server.arg(i) + "</p>";
   }
 
   body += "</body>";
@@ -164,4 +175,11 @@ void handleHealth()
 {
   String body = "Health check OK!";
   server.send(200, "text/html", body);
+}
+
+void handleClose()
+{
+  String body = "Closed";
+  server.send(200, "text/html", body);
+  server.stop();
 }
