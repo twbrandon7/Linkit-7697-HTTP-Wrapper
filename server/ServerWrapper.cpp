@@ -1,9 +1,10 @@
 #include "Arduino.h"
 #include "LWiFi.h"
 #include "vector"
+#include "string"
 
 #include "http_handler_linked_list.cpp"
-#include "utils.cpp"
+#include "../utils/utils.cpp"
 
 class ServerWrapper
 {
@@ -17,6 +18,8 @@ private:
   std::vector<String> queryKeys;
   std::vector<String> queryValues;
   String path = "";
+
+  bool run = false;
 
   String getRequestLine(WiFiClient client)
   {
@@ -66,14 +69,14 @@ private:
 
     Serial.println(String(c_url));
 
-    std::vector<char*> arr = utils::split(c_url, "?");
-    path = String(arr[0]);
-    std::vector<char*> pars = utils::split(arr[1], "&");
+    std::vector<std::string> arr = utils::split(c_url, "?");
+    path = String((char*) arr[0].c_str());
+    std::vector<std::string> pars = utils::split(arr[1], "&");
     for(int i = 0; i < pars.size(); i++)
     {
-      std::vector<char*> sep = utils::split(pars[i], "=");
-      queryKeys.push_back(String(sep[0]));
-      queryValues.push_back(String(sep[1]));
+      std::vector<std::string> sep = utils::split(pars[i], "=");
+      queryKeys.push_back(String((char*) sep[0].c_str()));
+      queryValues.push_back(String((char*) sep[1].c_str()));
     }
   }
 
@@ -89,7 +92,14 @@ public:
   void begin()
   {
     server->begin();
+    run = true;
     Serial.println("[ServerWrapper] started");
+  }
+
+  void stop()
+  {
+    run = false;
+    Serial.println("[ServerWrapper] closed");
   }
   
   void on(char* path, http_handler handler) {
@@ -146,8 +156,15 @@ public:
     return this->queryValues.size();
   }
 
+  bool isRunning()
+  {
+    return run;
+  }
+
   void accept()
   {
+    if(!run) return;
+    
     WiFiClient client = server->available();
     if (client)
     {
