@@ -1,8 +1,8 @@
 #include "server/ServerWrapper.cpp"
 #include "client/ClientWrapper.cpp"
 
-char ssid[] = "Xperia Z5_fb41"; // your network SSID (name)
-char pass[] = "790951405";      // your network password
+char ssid[] = ""; // your network SSID (name)
+char pass[] = "";      // your network password
 int keyIndex = 0;               // your network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;
