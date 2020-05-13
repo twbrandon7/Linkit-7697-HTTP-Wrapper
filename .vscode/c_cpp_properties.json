@@ -11,9 +11,12 @@
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/**",
                 "C:/Program Files (x86)/Arduino/hardware/tools/**",
                 "C:/Program Files (x86)/Arduino/libraries/**",
-                "C:/Users/${env:Username}/Documents/Arduino/libraries/**"
+                "C:/Users/${env:Username}/Documents/Arduino/libraries/**",
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/hardware/linkit_rtos/0.10.21/**",
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/tools/**"
             ],
             "forcedInclude": [
+                "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/hardware/linkit_rtos/0.10.21/cores/arduino/Arduino.h",
                 "C:/Users/${env:Username}/AppData/Local/Arduino15/packages/LinkIt/hardware/linkit_rtos/0.10.21/cores/arduino/Arduino.h"
             ],
             "intelliSenseMode": "msvc-x64",
