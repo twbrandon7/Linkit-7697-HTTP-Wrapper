@@ -64,19 +64,23 @@ private:
     queryValues.clear();
     path = "";
 
-    char c_url[url.length()+2];
-    url.toCharArray(c_url, url.length()+1);
-
-    Serial.println(String(c_url));
+    int len = url.length();
+    char *c_url = (char *)malloc((len + 1) * sizeof(char));
+    memcpy(c_url, (char *) url.c_str(), len);
+    c_url[len] = 0;
 
     std::vector<std::string> arr = utils::split(c_url, "?");
     path = String((char*) arr[0].c_str());
-    std::vector<std::string> pars = utils::split(arr[1], "&");
-    for(int i = 0; i < pars.size(); i++)
+
+    if(arr.size() > 1)
     {
-      std::vector<std::string> sep = utils::split(pars[i], "=");
-      queryKeys.push_back(String((char*) sep[0].c_str()));
-      queryValues.push_back(String((char*) sep[1].c_str()));
+      std::vector<std::string> pars = utils::split(arr[1], "&");
+      for(int i = 0; i < pars.size(); i++)
+      {
+        std::vector<std::string> sep = utils::split(pars[i], "=");
+        queryKeys.push_back(String((char*) sep[0].c_str()));
+        queryValues.push_back(String((char*) sep[1].c_str()));
+      }
     }
   }
 
@@ -176,7 +180,6 @@ public:
       
       if(reqLine.equals("") || reqPath.equals("") || path.equals(""))
       {
-        Serial.println("CK1-1");
         if(this->error_handler == NULL)
         {
           this->send(400, "text/html", "400 Bad Request.");
