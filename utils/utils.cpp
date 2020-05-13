@@ -67,6 +67,8 @@ public:
     std::vector<std::string> sep_protocol = split(url, "://");
     info.protocol = (char *)sep_protocol[0].c_str();
 
+    if(sep_protocol.size() <= 1) return info;
+
     // seperate path
     char *remain = (char *)sep_protocol[1].c_str();
     char *pathPtr = strchr(remain, '/');

@@ -78,8 +78,11 @@ private:
       for(int i = 0; i < pars.size(); i++)
       {
         std::vector<std::string> sep = utils::split(pars[i], "=");
-        queryKeys.push_back(String((char*) sep[0].c_str()));
-        queryValues.push_back(String((char*) sep[1].c_str()));
+        if(sep.size() >= 2)
+        {
+          queryKeys.push_back(String((char*) sep[0].c_str()));
+          queryValues.push_back(String((char*) sep[1].c_str()));
+        }
       }
     }
   }
