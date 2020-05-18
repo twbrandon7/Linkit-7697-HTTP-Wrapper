@@ -59,15 +59,13 @@ public:
     return "";
   }
 
-  static url_info parseUrl(char *url)
+  static void parseUrl(char *url, url_info &info)
   {
-    url_info info;
-
     // seperate protocol
     std::vector<std::string> sep_protocol = split(url, "://");
     info.protocol = (char *)sep_protocol[0].c_str();
 
-    if(sep_protocol.size() <= 1) return info;
+    if(sep_protocol.size() <= 1) return;
 
     // seperate path
     char *remain = (char *)sep_protocol[1].c_str();
@@ -108,6 +106,7 @@ public:
     info.host = (char *)malloc((hostLen + 1) * sizeof(char));
     memcpy(info.host, (char *) sep_port[0].c_str(), hostLen);
     info.host[hostLen] = 0;
-    return info;
+
+    free(hostAndPort);
   }
 };

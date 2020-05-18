@@ -128,7 +128,7 @@ public:
         headers.clear();
         char c_url[url.length() + 1];
         url.toCharArray(c_url, url.length() + 1);
-        info = utils::parseUrl(c_url);
+        utils::parseUrl(c_url, info);
     }
 
     void addHeader(String key, String value)
@@ -159,5 +159,8 @@ public:
     void end()
     {
         client.stop();
+        free(info.host);
+        free(info.path);
+        free(info.protocol);
     }
 };

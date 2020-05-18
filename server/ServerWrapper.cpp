@@ -19,6 +19,8 @@ private:
   std::vector<String> queryValues;
   String path = "";
 
+  char *_c_url;
+
   bool run = false;
 
   String getRequestLine(WiFiClient client)
@@ -65,11 +67,11 @@ private:
     path = "";
 
     int len = url.length();
-    char *c_url = (char *)malloc((len + 1) * sizeof(char));
-    memcpy(c_url, (char *) url.c_str(), len);
-    c_url[len] = 0;
+    _c_url = (char *)malloc((len + 1) * sizeof(char));
+    memcpy(_c_url, (char *) url.c_str(), len);
+    _c_url[len] = 0;
 
-    std::vector<std::string> arr = utils::split(c_url, "?");
+    std::vector<std::string> arr = utils::split(_c_url, "?");
     path = String((char*) arr[0].c_str());
 
     if(arr.size() > 1)
@@ -219,5 +221,6 @@ public:
       client.stop();
       Serial.println("[ServerWrapper] client disonnected");
     }
+    free(_c_url);
   }
 };

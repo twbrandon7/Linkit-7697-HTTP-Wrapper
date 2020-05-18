@@ -67,6 +67,9 @@ void printWifiStatus()
 void testHttpClient()
 {
   Serial.println("Start testing HTTP Client.");
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   int statusCode;
 
   Serial.println("===== HTTP GET =====");
@@ -79,6 +82,9 @@ void testHttpClient()
   Serial.println("----- response body END -----");
   client.end();
   Serial.println();
+
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
 
   delay(1000);
 
@@ -94,6 +100,9 @@ void testHttpClient()
   client.end();
   Serial.println();
 
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   delay(1000);
 
   Serial.println("===== HTTP POST (JSON) =====");
@@ -108,6 +117,9 @@ void testHttpClient()
   client.end();
   Serial.println();
 
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   delay(1000);
 
   Serial.println("===== HTTP PUT =====");
@@ -120,6 +132,9 @@ void testHttpClient()
   Serial.println("----- response body END -----");
   client.end();
   Serial.println();
+
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
 }
 
 void testHttpServer()
@@ -150,6 +165,9 @@ void testHttpServer()
 
 void handleRoot(int var)
 {
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   String body = "<!DOCTYPE html>";
   body += "<html>";
   body += "<head>";
@@ -173,12 +191,18 @@ void handleRoot(int var)
 
 void handleHealth()
 {
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   String body = "Health check OK!";
   server.send(200, "text/html", body);
 }
 
 void handleClose()
 {
+  Serial.print("free memory=");
+  Serial.println(xPortGetMinimumEverFreeHeapSize());
+
   String body = "Closed";
   server.send(200, "text/html", body);
   server.stop();
